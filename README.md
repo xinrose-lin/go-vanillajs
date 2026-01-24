@@ -10,7 +10,11 @@ The code snippets below are referenced throughout the course so you can either c
 
 Run `go mod init frontendmasters.com/reelingit` to create the module.
 
+- creates go.mod file, containing modules path, and go version
+
 Install the dependencies
+
+- `go get` creates go.sum file, storing crypto cecksum of module's dependencies to verify integrity and ensure reproducible builds
 
 ```
 go get github.com/joho/godotenv
