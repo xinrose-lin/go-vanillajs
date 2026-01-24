@@ -118,6 +118,8 @@ func initializeLogger() *logger.Logger {
 
 ### A3 - Models
 
+these will map to the database
+
 Create the *models* package with the following files:
 
 *genre.go*
@@ -247,6 +249,17 @@ Now setup the handler in *main.go*
 ### A5 - Install AIR
 
 Check instructions at [https://github.com/air-verse/air](https://github.com/air-verse/air), such as executing
+
+
+this will add it to go.sum file
+```
+go get -tool github.com/air-verse/air@latest
+```
+afterwards
+```
+go tool air
+```
+
 
 ```
 go install github.com/cosmtrek/air@latest
