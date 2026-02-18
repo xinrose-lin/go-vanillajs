@@ -1,3 +1,82 @@
 <!DOCTYPE html>
-<title>Document</title>
-<h1> hello from go </h1>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="app.webmanifest">
+    <!-- enable ECMA module, so that js file can import other js files -->
+    <!-- so that we dont need to list all js files here in html -->
+    <script src="app.js" type="module" defer></script>
+    <!-- defer: loads (download files) in parallel w parsing, -->
+     <!-- but wait till parsing ends, before it executes js script -->
+</head>
+<body>
+    <header>
+        <h1><img src="images/logo.png"></h1>
+        <nav>
+            <ul>
+                <li><a class="navlink" href="/">Movies</a></li>
+                <li><a class="navlink" href="/account/favorites">Favourites</a></li>
+                <li><a class="navlink" href="/account/watchlist">Watchlist</a></li>
+                <li><a class="navlink" href="/account/">My account</a></li>
+            </ul>
+        </nav>
+        <div>
+            <!-- on sumbit we will trigger this app function; -->
+             <!-- passing in event of the form -->
+              <!-- so that we can control what the browser does when the form is submitted -->
+               <!-- by default: submit -> browser collect form data, reload page, send request -->
+                <!-- event: -->
+            <form onsubmit="app.search(event)">
+                <input type="search" placeholder="Search Movies">
+            </form>
+        </div>
+    </header>
+    <main>
+        <!-- data- (for custom attributes) -->
+        <!-- <animated-loading data-elements="5"
+            data-width="300px" data-height="200px"></animated-loading> -->
+        <!-- can add here, or add using javascript in app.js file -->
+        <!-- <home-page></home-page> -->
+        <!-- <movie-details-page>hello</movie-details-page> -->
+    </main>
+
+    <!-- templates -->
+    <template id="template-home">
+        <section class="vertical-scroll" id="top-10">
+            <h2> Top Movies This Week </h2>
+            <ul></ul>
+        </section>
+        <section class="vertical-scroll" id="random">
+            <h2> Something to watch </h2>
+            <ul></ul>
+        </section>
+    </template>
+
+    <template id="template-movie-details">
+        <article id="movie">
+            <h2><animated-loading elements="2"></animated-loading></h2>
+            <h3></h3>
+            <header>
+                <img src="" alt="Poster">
+                <youtube-embed id="trailer" data-url="">youtube loading..</youtube-embed>
+                <section id="actions">
+                    <dl id="metadata">
+                    </dl>
+                    <button>Add to Favorites</button>
+                    <button>Add to Watchlist</button>    
+                </section>
+            </header>
+            <ul id="genres"></ul>
+            <p id="overview"></p>
+            <ul id="cast"></ul>
+        </article>
+    </template>
+
+    <footer>
+        <p>Copyrighted !</p>
+    </footer>
+</body>
+</html>
