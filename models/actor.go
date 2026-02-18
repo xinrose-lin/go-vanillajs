@@ -1,11 +1,11 @@
 package models
 
 type Actor struct {
-	ID int
-	FirstName string 
-	LastName string 
+	ID int				`json:"id"`
+	FirstName string 	`json:"first_name"`
+	LastName string 	`json:"last_name"`
 	// optional: allow if actor has no picture
 	// * (pointer) included so that its nullable 
-	ImageURL *string 
+	ImageURL *string 	`json:"image_url"`
 }
 
