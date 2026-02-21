@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	// based on how you named your package in go.mod
 	"frontendmasters.com/movies/data"
@@ -101,6 +102,37 @@ func (h *MovieHandler) GetRandomMovies(w http.ResponseWriter, r *http.Request) {
 	h.writeJsonResponse(w, movies)
 }
 
+func (h *MovieHandler) parseID(
+						w http.ResponseWriter, 
+						idStr string) (int, bool) {
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		h.Logger.Error("invalid id format", err)
+		// http.Error(w, "invalid id", http.StatusBadRequest)
+		return 0, false
+	}
+	return id, true 
+}
+
+func (h *MovieHandler) GetMovie(w http.ResponseWriter, r *http.Request) {
+
+	strID := r.URL.Path[len("/api/movies"):]
+	id, ok := h.parseID(w, strID)
+
+	if !ok {
+		return 
+	}
+
+	movies, err := h.Storage.GetMovieById(id)
+	// TODO
+	if err != nil {
+		h.Logger.Error("Failed to get movie", err)
+	}
+
+	if h.writeJsonResponse(w, movies) == nil {
+		h.Logger.Info("successfully served movie with id" + strID)
+	}
+}
 // func (h *MovieHandler) GetMovie(w http.ResponseWriter, r *http.Request) {
 // 	//  some dummy data
 // 	movie := []models.Movie{
@@ -118,3 +150,4 @@ func (h *MovieHandler) GetRandomMovies(w http.ResponseWriter, r *http.Request) {
 // 	h.writeJsonResponse(w, movie)
 
 // }
+

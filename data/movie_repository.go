@@ -2,7 +2,7 @@ package data
 
 import (
 	"database/sql"
-	// "errors"
+	"errors"
 	// "strconv"
 
 	"frontendmasters.com/movies/logger"
@@ -93,3 +93,40 @@ func (r *MovieRepository) getMovies(query string) ([]models.Movie, error) {
 
 	return movies, nil
 }
+
+func (r *MovieRepository) GetMovieById(id int) (models.Movie, error) {
+	// Fetch movie
+	query := `
+		SELECT id, tmdb_id, title, tagline, release_year, overview, score, 
+		       popularity, language, poster_url, trailer_url
+		FROM movies
+		WHERE id = $1
+	`
+	row := r.db.QueryRow(query, id)
+
+	var m models.Movie
+	err := row.Scan(
+		&m.ID, &m.TMDB_ID, &m.Title, &m.Tagline, &m.ReleaseYear,
+		&m.Overview, &m.Score, &m.Popularity, &m.Language,
+		&m.PosterURL, &m.TrailerURL,
+	)
+	if err == sql.ErrNoRows {
+		r.logger.Error("Movie not found", ErrMovieNotFound)
+		return models.Movie{}, ErrMovieNotFound
+	}
+	if err != nil {
+		r.logger.Error("Failed to query movie by ID", err)
+		return models.Movie{}, err
+	}
+
+	// Fetch related data
+	// if err := r.fetchMovieRelations(&m); err != nil {
+	// 	return models.Movie{}, err
+	// }
+
+	return m, nil
+}
+
+var (
+	ErrMovieNotFound = errors.New("movie not found")
+)

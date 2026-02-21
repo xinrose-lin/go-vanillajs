@@ -10,7 +10,7 @@ type MovieStorage interface {
 	// return movies with error is better 
 	GetTopMovies() ([]models.Movie, error)
 	GetRandomMovies() ([]models.Movie, error)
-	// GetMovieById(id int) (models.Movie, error)
+	GetMovieById(id int) (models.Movie, error)
 	// SearchMoviesByName(name string) ([]models.Movie, error)
 	// GetAllGenres() ([]models.Genre, error)
 

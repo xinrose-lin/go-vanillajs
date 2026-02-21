@@ -53,9 +53,10 @@ func main() {
 
 	// registers handler, for this path
 	// to pass function as a argument, 
+	// http.HandleFunc("/api/movies/top", movieHandler.GetTopMovies)
 	http.HandleFunc("/api/movies/top", movieHandler.GetTopMovies)
 	http.HandleFunc("/api/movies/random", movieHandler.GetRandomMovies)
-	// http.HandleFunc("/api/movies/", movieHandler.GetMovie)
+	http.HandleFunc("/api/movies/", movieHandler.GetMovie)
 
 	// handler for static files (frontend)
 	// fileserver: serves file system
